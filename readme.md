@@ -21,7 +21,7 @@ Currently included visualizations:
  * Calendar heatmap
  * Single number
  
- ### Important
+### Important
  
  Due to security-related restrictions of the Flashplayer you have to place a crossdomain.xml to every website you want to load data from. The file should look something like this:
  
