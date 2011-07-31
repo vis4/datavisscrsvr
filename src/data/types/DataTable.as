@@ -82,6 +82,15 @@ package data.types
 		{
 			return _rows[row][keyIndex[col]];
 		}
+		
+		public function getColAsNumbers(col:String):Array
+		{
+			var res:Array = [];
+			for each (var row:Array in _rows) {
+				res.push(Number(row[keyIndex[col]]));
+			}
+			return res;
+		}
 	}
 
 }

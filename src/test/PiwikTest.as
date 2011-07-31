@@ -27,7 +27,7 @@ package test
 			piwik = new Piwik({
 				'piwik-url': 'http://piwik.vis4.net/',
 				'piwik-token-auth': 'anonymous',
-				'piwik-site-id': 7
+				'piwik-site-id': 1
 			});
 			piwik.addEventListener(Event.INIT, initialized);
 			piwik.initialize();
@@ -57,8 +57,8 @@ package test
 			vis.setData(ds.getData());
 			vis.fadeIn();
 			
-			new DelayedTask(8000, vis, vis.fadeOut);
-			new DelayedTask(10000, this, next);
+			//new DelayedTask(8000, vis, vis.fadeOut);
+			//new DelayedTask(10000, this, next);
 			/*viz.foo();
 			viz.setData(ds.getData());
 			viz.fadeIn();

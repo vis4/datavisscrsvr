@@ -3,6 +3,7 @@ package data.modules
 	import data.modules.piwik.Piwik_LinksThisMonth;
 	import data.modules.piwik.Piwik_UniqueVisitorsThisMonth;
 	import data.modules.piwik.Piwik_VisitorsLast30Days;
+	import data.modules.piwik.Piwik_VisitorsLast365Days;
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
 	import flash.net.URLLoader;
@@ -66,10 +67,11 @@ package data.modules
 					'y': 'visitors'
 				});*/
 				
-				registerDataset(new Piwik_UniqueVisitorsThisMonth(this));
+				/*registerDataset(new Piwik_UniqueVisitorsThisMonth(this));
 				registerDataset(new Piwik_VisitorsLast52Weeks(this));
 				registerDataset(new Piwik_VisitorsLast30Days(this));
-				registerDataset(new Piwik_LinksThisMonth(this));
+				registerDataset(new Piwik_LinksThisMonth(this));*/
+				registerDataset(new Piwik_VisitorsLast365Days(this));
 				
 				dispatchEvent(new Event(Event.INIT));
 			}
