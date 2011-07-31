@@ -11,6 +11,7 @@ package data.modules.piwik
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
 	import viz.SparkLine;
+	import viz.TagCloud;
 
 
 	public class Piwik_LinksThisMonth extends DataSet {
@@ -55,7 +56,7 @@ package data.modules.piwik
 		protected function dataLoaded(e:Event):void 
 		{
 			var ldr:AsyncDataLoader = e.target as AsyncDataLoader;
-			_data = ldr.getResult('day-stats');
+			_data = ldr.getResult('link-stats');
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 

@@ -1,5 +1,6 @@
 package data.modules 
 {
+	import data.modules.piwik.Piwik_LinksThisMonth;
 	import data.modules.piwik.Piwik_UniqueVisitorsThisMonth;
 	import data.modules.piwik.Piwik_VisitorsLast30Days;
 	import data.util.AsyncDataLoader;
@@ -68,6 +69,7 @@ package data.modules
 				registerDataset(new Piwik_UniqueVisitorsThisMonth(this));
 				registerDataset(new Piwik_VisitorsLast52Weeks(this));
 				registerDataset(new Piwik_VisitorsLast30Days(this));
+				registerDataset(new Piwik_LinksThisMonth(this));
 				
 				dispatchEvent(new Event(Event.INIT));
 			}

@@ -75,6 +75,11 @@ package data.types
 		
 		public function getCell(row:uint, col:String):*
 		{
+			return get(row, col);
+		}
+		
+		public function get(row:uint, col:String):*
+		{
 			return _rows[row][keyIndex[col]];
 		}
 	}

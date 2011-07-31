@@ -26,7 +26,7 @@ package test
 		{
 			piwik = new Piwik({
 				'piwik-url': 'http://piwik.vis4.net/',
-				'piwik-token-auth': 'ce12c36019921a5f061b6408e5eb5af1',
+				'piwik-token-auth': 'anonymous',
 				'piwik-site-id': 7
 			});
 			piwik.addEventListener(Event.INIT, initialized);

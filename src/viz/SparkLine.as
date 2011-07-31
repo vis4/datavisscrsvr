@@ -87,9 +87,9 @@ package viz
 				
 				path.addPoint(p);
 				
-				if (val == minMax[1]) {
+				if (val == minMax[1] && val) {
 					getLabel(val, 24).place(p.x, p.y - 40, _stage);
-				} else if (val == minMax[0]) {
+				} else if (val == minMax[0] && val > 0) {
 					getLabel(val, 24).place(p.x, p.y + 4, _stage);
 				}
 			}
