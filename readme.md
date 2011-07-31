@@ -1,6 +1,6 @@
 
-Simple Datavis Screensaver
-==========================
+Datavis Screensaver
+=======================
 
 The idea is simple: instead of looking at stupid screensavers that display some random graphics or images (ok, it might be art in some ways) one could display stupid data visualizations as well. One of the most stupid datasets I'm regularly looking at is the visitor statistics of my websites, so I thought this would be a perfect combination.
 
@@ -23,9 +23,17 @@ Currently included visualizations:
  
 ### Important
  
- Due to security-related restrictions of the Flashplayer you have to place a crossdomain.xml to every website you want to load data from. The file should look something like this:
+Due to security-related restrictions of the Flashplayer you have to place a crossdomain.xml to every website you want to load data from. The file should look something like this:
  
 	<?xml version="1.0" ?>
 	<cross-domain-policy>
 		<allow-access-from domain="*" />
 	</cross-domain-policy>
+	
+Maybe I can workaround this limitation in future versions. Maybe it is possible to fire the cross-domain calls via JavaScript and JSONP. 
+
+## FAQ
+
+### Why have you built this in Flash? Those times are over, aren't they?
+
+I would never dare to write a screensaver without the amazing tweening engine TweenLite. And I wanted high performance blur effects on text fields. And it's faster for me to code in AS3. This is a fun project for me.
