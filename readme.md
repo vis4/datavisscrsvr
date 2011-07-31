@@ -12,3 +12,12 @@ The screensaver (the flash movie) will collect and visualize live data from vari
  * Piwik Web Analytics
  
 Will add some more in the near future.
+
+Currently included visualizations:
+
+ * Line chart
+ * Bar chart
+ * Calendar heatmap
+ * Single number
+ 
+ 
