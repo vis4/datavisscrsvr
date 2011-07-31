@@ -14,20 +14,20 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'7/31/2011'</value>
+      <value>'8/1/2011'</value>
     </define>
     <source-path append="true">
-      <path-element>Z:\Incubator\vizscrsvr\src</path-element>
-      <path-element>Z:\Incubator\vizscrsvr\lib</path-element>
+      <path-element>Z:\Incubator\vizscrsvr\flash\src</path-element>
+      <path-element>Z:\Incubator\vizscrsvr\flash\lib</path-element>
       <path-element>\\psf\Home\Documents\www\moritz\sl\relbrowser</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>Z:\Incubator\vizscrsvr\lib\greensock.swc</path-element>
+      <path-element>Z:\Incubator\vizscrsvr\flash\lib\greensock.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>Z:\Incubator\vizscrsvr\src\Main.as</path-element>
+    <path-element>Z:\Incubator\vizscrsvr\flash\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>30</default-frame-rate>

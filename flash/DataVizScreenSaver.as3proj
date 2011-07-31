@@ -4,7 +4,7 @@
   <output>
     <movie disabled="False" />
     <movie input="" />
-    <movie path="bin\DataVizScreenSaver.swf" />
+    <movie path="bin\screensaver.swf" />
     <movie fps="30" />
     <movie width="1200" />
     <movie height="800" />
@@ -77,7 +77,8 @@
   <!-- Executed before build -->
   <preBuildCommand />
   <!-- Executed after build -->
-  <postBuildCommand alwaysRun="False" />
+  <postBuildCommand alwaysRun="False">$(ProjectDir)\postbuild.bat
+</postBuildCommand>
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
