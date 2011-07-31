@@ -1,5 +1,6 @@
 package viz 
 {
+	import assets.Lato;
 	import com.greensock.easing.Expo;
 	import com.greensock.easing.Quart;
 	import com.greensock.plugins.BlurFilterPlugin;
@@ -21,7 +22,7 @@ package viz
 	 * ...
 	 * @author gka
 	 */
-	public class SparkLine extends VizModule 
+	public class BarChart extends VizModule 
 	{
 		protected var _data:DataTable;
 		protected var chart:Sprite;
@@ -29,7 +30,7 @@ package viz
 		
 		
 		
-		public function SparkLine(stage:Sprite, config:Object) 
+		public function BarChart(stage:Sprite, config:Object) 
 		{
 			super(stage, config);
 			if (!_config.hasOwnProperty('padding')) _config.padding = _stage.stage.stageWidth * 0.1;
@@ -45,34 +46,18 @@ package viz
 				_data = data as DataTable;
 				
 			} else {
-				throw new Error('SparkLine requires a table');
+				throw new Error('BarChart requires a table');
 			}
 		}
+
 		
-		override public function fadeIn():void 
-		{
-			super.fadeIn();
-			
-			addTitle(0);
-			
-			super.fadeIn();
-			
-			
-			_stage.addChild(chart);
-			lineChart();
-			
-			for each (var lbl:Label in _labels) {
-				TweenLite.from(lbl, .7, { alpha: 0, x: lbl.x - 30, blurFilter: { blurX: 24, blurY: 12 }, delay: 3 }); 
-			}
-		}
-		
-		public function lineChart():void
+		public function barChart():void
 		{
 			var g:Graphics = chart.graphics;
 			g.clear();
 			
 			var minMax:Array = _data.minMax(_config.y);
-
+			var bw:Number = (_stage.stage.stageWidth-_config.padding*2)/(_data.length-1)*0.75, bb:Number = _stage.stage.stageHeight - _config.padding;
 			var path:Path = new Path();
 			
 			for (var r:uint = 0; r < _data.length; r++) {
@@ -80,17 +65,20 @@ package viz
 				
 				var p:Point = new Point(
 				_config.padding + (_stage.stage.stageWidth - _config.padding * 2) * r / (_data.length - 1),
-			_stage.stage.stageHeight - _config.padding - (_stage.stage.stageHeight - _config.padding * 3) * (val - minMax[0]) / (minMax[1] - minMax[0])
+			_stage.stage.stageHeight - _config.padding - (_stage.stage.stageHeight - _config.padding * 3) * (val) / (minMax[1])
 				
 				);
 				
-				path.addPoint(p);
+				var bar:Bar = new Bar(bw, 0, 0x2894FF)
+					.place(p.x, bb, _stage);
+				
+				TweenLite.to(bar, .4, { delay: r * 0.05, h: bb - p.y } );
 				
 				if (val == minMax[1] && val) {
-					getLabel(val, 24).place(p.x, p.y - 40, _stage);
-				} else if (val == minMax[0] && val > 0) {
-					getLabel(val, 24).place(p.x, p.y + 4, _stage);
-				}
+					var lbl:Label = getLabel(val, 24).place(p.x, p.y - 40, _stage);
+					TweenLite.from(lbl, .7, { alpha: 0, x: lbl.x - 30, blurFilter: { blurX: 24, blurY: 12 }, delay: r * 0.05 }); 
+				
+				} 
 			}
 			
 			var ps:PathSprite = new PathSprite(path, 6, 0xF3835C, 1, 0, 0);
@@ -104,9 +92,25 @@ package viz
 		
 		protected function getLabel(txt:*, size:Number = 20, align:String = 'center'):Label
 		{
-			var lbl:Label = new Label(txt, new QuicksandBold( { color: 0xffffff, size: size }), align);
+			var lbl:Label = new Label(txt, new Lato( { color: 0xffffff, size: size }), align);
 			_labels.push(lbl);
 			return lbl;
+		}
+		
+				
+		override public function fadeIn():void 
+		{
+			super.fadeIn();
+			
+			addTitle(2);
+			
+			super.fadeIn();
+			
+			
+			_stage.addChild(chart);
+			barChart();
+			
+			
 		}
 		
 		override public function fadeOut():void 
@@ -121,4 +125,62 @@ package viz
 		
 	}
 
+}
+import flash.display.DisplayObjectContainer;
+import flash.display.Graphics;
+import flash.display.Sprite;
+
+class Bar extends Sprite {
+	
+	protected var _w:Number;
+	protected var _h:Number;
+	protected var _color:uint;
+	protected var _alpha:Number;
+	
+	public function Bar(w:Number, h:Number, color:uint, alpha:Number=1)
+	{
+		_alpha = alpha;
+		_color = color;
+		_h = h;
+		_w = w;
+		draw();
+	}
+	
+	public function place(x:Number, y:Number, cont:DisplayObjectContainer):Bar
+	{
+		this.x = x;
+		this.y = y;
+		cont.addChild(this);
+		return this;
+	}
+	
+	public function draw():void
+	{
+		var g:Graphics = graphics;
+		g.clear();
+		g.beginFill(_color, _alpha);
+		if (_h > 0) g.drawRect( -_w * 0.5, -_h, _w, _h);
+	}
+	
+	public function get h():Number 
+	{
+		return _h;
+	}
+	
+	public function set h(value:Number):void 
+	{
+		_h = value;
+		draw()
+	}
+	
+	public function get w():Number 
+	{
+		return _w;
+	}
+	
+	public function set w(value:Number):void 
+	{
+		_w = value;
+		draw();
+	}
 }

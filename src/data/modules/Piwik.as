@@ -67,10 +67,10 @@ package data.modules
 					'y': 'visitors'
 				});*/
 				
-				/*registerDataset(new Piwik_UniqueVisitorsThisMonth(this));
-				registerDataset(new Piwik_VisitorsLast52Weeks(this));
+				//registerDataset(new Piwik_UniqueVisitorsThisMonth(this));
 				registerDataset(new Piwik_VisitorsLast30Days(this));
-				registerDataset(new Piwik_LinksThisMonth(this));*/
+				//registerDataset(new Piwik_LinksThisMonth(this));
+				registerDataset(new Piwik_VisitorsLast52Weeks(this));
 				registerDataset(new Piwik_VisitorsLast365Days(this));
 				
 				dispatchEvent(new Event(Event.INIT));

@@ -46,7 +46,7 @@ package viz
 			
 			_months = _to.fullYear * 12 + _to.month - _from.fullYear * 12 - _from.month+1;
 			
-		var linscale:ColorScale = new ColorScale([0x570B0B, 0xFFF793], [0, 1]);
+		var linscale:ColorScale = new ColorScale([0x323030, 0xFFE600], [0, 1]);
 			
 			/* compute percentile color scale */
 			var values:Array = _data.getColAsNumbers('visits');
@@ -70,9 +70,8 @@ package viz
 		
 		override public function fadeIn():void 
 		{
-			addTitle('right', 'bottom');
-			addSubtitle('left', 'bottom');
-			
+			addTitle(1);
+		
 			var monthPerRow:uint;
 			// find number of months per row
 			if (_months < 4) monthPerRow = _months;

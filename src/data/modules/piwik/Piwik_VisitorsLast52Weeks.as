@@ -10,6 +10,7 @@ package data.modules.piwik
 	import data.modules.Piwik;
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
+	import viz.BarChart;
 	import viz.SparkLine;
 
 
@@ -20,7 +21,7 @@ package data.modules.piwik
 		protected var _data:DataTable;
 		
 		public function Piwik_VisitorsLast52Weeks(module:Piwik) {
-			super('piwik-week-stats', module, 86400, SparkLine, {
+			super('piwik-week-stats', module, 86400, BarChart, {
 				title: module.siteInfo,
 				subtitle: 'Visitors per Week',
 				x: 'date',

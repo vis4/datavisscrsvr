@@ -57,8 +57,8 @@ package test
 			vis.setData(ds.getData());
 			vis.fadeIn();
 			
-			//new DelayedTask(8000, vis, vis.fadeOut);
-			//new DelayedTask(10000, this, next);
+			new DelayedTask(8000, vis, vis.fadeOut);
+			new DelayedTask(10000, this, next);
 			/*viz.foo();
 			viz.setData(ds.getData());
 			viz.fadeIn();
