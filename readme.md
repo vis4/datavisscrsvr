@@ -36,4 +36,4 @@ Maybe I can workaround this limitation in future versions. Maybe it is possible 
 
 ### Why have you built this in Flash? Those times are over, aren't they?
 
-I would never dare to write a screensaver without the amazing tweening engine TweenLite. And I wanted high performance blur effects on text fields. And it's faster for me to code in AS3. This is a fun project for me.
+I would never dare to write a screensaver without the amazing tweening engine TweenLite. And I wanted high performance blur effects on rotated text fields rendering beautiful embedded fonts. And I wanted this to run on any platform, including older Windows machines. After all, it was faster for me to code this is AS3. It's a fun project for me, you know?
