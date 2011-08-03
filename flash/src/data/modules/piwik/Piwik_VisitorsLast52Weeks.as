@@ -7,7 +7,6 @@ package data.modules.piwik
 	import data.types.DataTable;
 	import data.types.RawData;
 	import data.modules.DataSet;
-	import data.modules.Piwik;
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
 	import viz.BarChart;
@@ -23,7 +22,7 @@ package data.modules.piwik
 		public function Piwik_VisitorsLast52Weeks(module:Piwik) {
 			super('piwik-week-stats', module, 86400, BarChart, {
 				title: module.siteInfo,
-				subtitle: 'Visitors per Week',
+				subtitle: 'visits in the last 52 weeks',
 				x: 'date',
 				y: 'visitors'
 			});

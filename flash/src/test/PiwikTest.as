@@ -1,7 +1,7 @@
 package test 
 {
 	import data.modules.DataSet;
-	import data.modules.Piwik;
+	import data.modules.piwik.Piwik;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import net.vis4.utils.DelayedTask;
@@ -53,12 +53,14 @@ package test
 			
 			//var viz:VizModule = new ds.viz(_stage, ds.config);
 			var vis:VizModule = new ds.viz(_stage, ds.config);//
-			vis.foo();
+			
 			vis.setData(ds.getData());
 			vis.fadeIn();
 			
-			new DelayedTask(8000, vis, vis.fadeOut);
-			new DelayedTask(10000, this, next);
+			var slideTime:Number = 6;
+			
+			new DelayedTask(slideTime*1000, vis, vis.fadeOut);
+			new DelayedTask(slideTime*1000+2000, this, next);
 			/*viz.foo();
 			viz.setData(ds.getData());
 			viz.fadeIn();

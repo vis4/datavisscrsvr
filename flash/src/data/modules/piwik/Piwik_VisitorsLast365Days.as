@@ -4,10 +4,10 @@ package data.modules.piwik
 	 * ...
 	 * @author gka
 	 */
+	import com.adobe.serialization.json.JSON;
 	import data.types.DataTable;
 	import data.types.RawData;
 	import data.modules.DataSet;
-	import data.modules.Piwik;
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
 	import viz.HeatMapCalendar;
@@ -23,7 +23,7 @@ package data.modules.piwik
 		public function Piwik_VisitorsLast365Days(module:Piwik) {
 			super('piwik-day-stats', module, 86400, HeatMapCalendar, {
 				title: module.siteInfo,
-				subtitle: 'visits per day',
+				subtitle: 'visits per day during the last year',
 				x: 'date',
 				y: 'visits'
 			});
@@ -32,26 +32,45 @@ package data.modules.piwik
 				method: 'VisitsSummary.getVisits',
 				period: 'day',
 				date: 'last' + Math.round((today.valueOf() - yearago.valueOf()) / 86400000)
-			});
-		}
-		
-		protected function processWeeklyStats(raw:String):DataTable
-		{
-			var xml:XML = new XML(raw);
-			var table:DataTable = new DataTable(['date', 'visits']);
-			for each (var r:XML in xml.result) {
-				table.insertRow([String(r.@date), String(r)]);
-			}
-			return table;
+			}, 'json');
 		}
 		
 		override public function load():void 
 		{
 			var ldr:AsyncDataLoader = new AsyncDataLoader([
-				['day-stats', _apiUrl, processWeeklyStats]
+				['day-stats', _apiUrl, process]
 			]);
 			ldr.addEventListener(Event.COMPLETE, dataLoaded);
 			ldr.run();
+		}	
+		
+		protected function process(raw:String, format:String = 'json'):DataTable
+		{
+			var table:DataTable = new DataTable(['date', 'visits']);
+			
+			switch (format) {
+				case 'xml':
+					var xml:XML = new XML(raw);
+					for each (var r:XML in xml.result) {
+						table.insertRow([String(r.@date), String(r)]);
+					}
+					return table;
+				case 'json':
+					var json:Object = JSON.decode(raw);
+					
+					// sort dates 
+					var dates:Array = [];
+					for (var date:String in json) dates.push(date);
+					dates.sort();
+					
+					for each (date in dates) {
+						trace(date, json.date);
+						table.insertRow([date, json[date]]);
+					}
+					return table;
+				default:
+					throw new Error('unknown data format "' + format + '"');
+			}
 		}
 		
 		protected function dataLoaded(e:Event):void 
