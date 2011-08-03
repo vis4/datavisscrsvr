@@ -5,6 +5,7 @@ package viz
 	import data.modules.DataModule;
 	import data.types.RawData;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	import net.vis4.text.fonts.embedded.QuicksandBook;
 	import net.vis4.text.fonts.embedded.QuicksandLight;
 	import net.vis4.text.Label;
@@ -20,18 +21,19 @@ package viz
 		protected var title:Label;
 		protected var subtitle:Label;
 		
+		protected var _vizBounds:Rectangle;
+		protected var _baseFontSize:Number;
 		
 		public function VizModule(stage:Sprite, config:Object) 
 		{
 			_config = config;
 			_stage = stage;
+			var p:Number = Math.min(stage.stage.stageWidth * 0.1, stage.stage.stageHeight * 0.1);
+			_vizBounds = new Rectangle(p, p, stage.stage.stageWidth - p * 2, stage.stage.stageHeight - p * 2);
 			
+			_baseFontSize = Math.min(_vizBounds.height, _vizBounds.width) * 0.03; 
 		}
 		
-		public function foo():void
-		{
-			trace('bar'); 
-		}
 		
 		/*
 		 * binds this visualization to a specific dataset
@@ -52,6 +54,7 @@ package viz
 		
 		public function fadeIn():void
 		{
+			
 			if (title) TweenLite.from(title, 1, { alpha: 0 } );
 			if (subtitle) TweenLite.from(subtitle, 1, { alpha: 0, delay: .8 } );
 		}
@@ -65,14 +68,14 @@ package viz
 		
 		protected function addTitle(layout:uint = 0):void
 		{
-			var title_size:Number = 50, 
+			var title_size:Number = _baseFontSize*3, 
 				 title_weight:Number = 700, 
 				 title_color:uint = 0xffffff, 
 				 title_bottom:Boolean = false,
-				 title_x:Number = 0,
-				 title_y:Number = 0,
+				 title_x:Number = _vizBounds.left,
+				 title_y:Number = _vizBounds.top,
 				 title_align:String = 'left',
-				 subtitle_size:Number = 40, 
+				 subtitle_size:Number = title_size * 0.6, 
 				 subtitle_weight:Number = 300, 
 				 subtitle_color:uint = 0xffffff, 
 				 subtitle_bottom:Boolean = false,
@@ -89,16 +92,17 @@ package viz
 				
 			} else if (layout == 1) {
 				// bottom
-				title_size = subtitle_size = 42;
-				title_x = _stage.stage.stageWidth * 0.1;
-				subtitle_x = _stage.stage.stageWidth * 0.9;
+				//title_size = subtitle_size = title_size * 0.8;
+				title_x = _vizBounds.left;
+				subtitle_x = _vizBounds.right;
 				subtitle_align = 'right';
-				title_y = subtitle_y = _stage.stage.stageHeight * 0.9;
+				title_y = subtitle_y = _vizBounds.bottom;
+				subtitle_y -= subtitle_size * 0.2;
 				title_bottom = subtitle_bottom = true;
 			} else if (layout == 2) {
 				// top left
-				title_x = subtitle_x = _stage.stage.stageWidth * 0.1;
-				title_y = _stage.stage.stageHeight * 0.1;
+				title_x = subtitle_x = _vizBounds.left;
+				title_y = _vizBounds.top;
 				subtitle_y = title_y + title_size*1.1;
 				subtitle_align = 'left';
 				
@@ -116,6 +120,11 @@ package viz
 				
 			if (title_bottom) title.y -= title.height;
 			if (subtitle_bottom) subtitle.y -= subtitle.height;
+			
+			_stage.graphics.clear();
+			_stage.graphics.lineStyle(0xffffff, .1);
+			_stage.graphics.drawRect(_vizBounds.x, _vizBounds.y, _vizBounds.width, _vizBounds.height);
+			
 		}
 		
 		protected function addSubtitle(halign:String = 'center', valign:String = 'top'):void

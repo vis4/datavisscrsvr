@@ -7,7 +7,6 @@ package data.modules.piwik
 	import data.types.DataTable;
 	import data.types.RawData;
 	import data.modules.DataSet;
-	import data.modules.Piwik;
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
 	import viz.BarChart;
@@ -23,7 +22,7 @@ package data.modules.piwik
 		public function Piwik_VisitorsLast30Days(module:Piwik) {
 			super('piwik-day-stats', module, 86400, BarChart, {
 				title: module.siteInfo,
-				subtitle: 'visits per day',
+				subtitle: 'visits in the last 30 days',
 				x: 'date',
 				y: 'visitors'
 			});

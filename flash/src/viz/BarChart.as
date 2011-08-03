@@ -1,6 +1,8 @@
 package viz 
 {
 	import assets.Lato;
+	import com.greensock.easing.Back;
+	import com.greensock.easing.Bounce;
 	import com.greensock.easing.Expo;
 	import com.greensock.easing.Quart;
 	import com.greensock.plugins.BlurFilterPlugin;
@@ -57,21 +59,22 @@ package viz
 			g.clear();
 			
 			var minMax:Array = _data.minMax(_config.y);
-			var bw:Number = (_stage.stage.stageWidth-_config.padding*2)/(_data.length-1)*0.75, bb:Number = _stage.stage.stageHeight - _config.padding;
+			var bw:Number = (_stage.stage.stageWidth - _config.padding * 2) / (_data.length - 1) * 0.75, 
+			bb:Number = _vizBounds.bottom;
 			var path:Path = new Path();
-			
+			_bars = [];
 			for (var r:uint = 0; r < _data.length; r++) {
 				var val:Number = _data.getCell(r, _config.y);
 				
 				var p:Point = new Point(
-				_config.padding + (_stage.stage.stageWidth - _config.padding * 2) * r / (_data.length - 1),
-			_stage.stage.stageHeight - _config.padding - (_stage.stage.stageHeight - _config.padding * 3) * (val) / (minMax[1])
+					_vizBounds.x + bw*.5 + (_vizBounds.width-bw) * r / (_data.length - 1),
+					_vizBounds.bottom - (_vizBounds.height*0.8) * (val) / (minMax[1])
 				
 				);
 				
 				var bar:Bar = new Bar(bw, 0, 0x2894FF)
 					.place(p.x, bb, _stage);
-				
+				_bars.push(bar);
 				TweenLite.to(bar, .4, { delay: r * 0.05, h: bb - p.y } );
 				
 				if (val == minMax[1] && val) {
@@ -81,14 +84,13 @@ package viz
 				} 
 			}
 			
-			var ps:PathSprite = new PathSprite(path, 6, 0xF3835C, 1, 0, 0);
-			ps.filters = [new GlowFilter(0xffffff, .1, 4,4,2,3,true)];
-			chart.addChild(ps);
-			TweenLite.to(ps, 4, { delay: 1, to: 1, ease:Quart.easeInOut } );
+			
+			
 		}
 		
 		// store all minor labels in here
 		private var _labels:Array = [];
+		protected var _bars:Array;
 		
 		protected function getLabel(txt:*, size:Number = 20, align:String = 'center'):Label
 		{
@@ -104,7 +106,7 @@ package viz
 			
 			addTitle(2);
 			
-			super.fadeIn();
+			
 			
 			
 			_stage.addChild(chart);
@@ -115,11 +117,16 @@ package viz
 		
 		override public function fadeOut():void 
 		{
-			TweenLite.to(chart, 1, { alpha: 0, onComplete: clean } );
+			TweenLite.to(chart, 1.5, { alpha: 0, onComplete: clean } );
 			for each (var lbl:Label in _labels) {
 				TweenLite.to(lbl, .7, { delay: .5, alpha: 0, x: lbl.x + 40, blurFilter: { blurX: 24, blurY: 12 } }); 
 			}
 			super.fadeOut();
+			
+			var c:uint = 0;
+			for each (var b:Bar in _bars) {
+				TweenLite.to(b, .3, { delay: c++ * 0.02, h: 0, ease: Back.easeIn } );
+			}
 		}
 			
 		

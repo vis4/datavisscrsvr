@@ -24,7 +24,7 @@ package
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
 			try {
-			stage.displayState = StageDisplayState.FULL_SCREEN;
+			//stage.displayState = StageDisplayState.FULL_SCREEN;
 			} catch (e:Error) {
 				
 			}
@@ -38,8 +38,11 @@ package
 			// entry point
 			
 			TweenPlugin.activate([BlurFilterPlugin]);
-			new Label('debug', new Lato( { color: 0xffffff } )).place(0, 0, this);
+			
 			Random.randomSeed();
+			
+			stage.scaleMode = 'noScale';
+			stage.align = 'TL';
 			
 			new PiwikTest(this).run();
 			//new PathTest(this).run();

@@ -6,7 +6,7 @@
     <movie input="" />
     <movie path="bin\screensaver.swf" />
     <movie fps="30" />
-    <movie width="1200" />
+    <movie width="1400" />
     <movie height="800" />
     <movie version="10" />
     <movie background="#000000" />
@@ -49,6 +49,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\greensock.swc" />
+    <element path="lib\as3corelib.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -77,8 +78,7 @@
   <!-- Executed before build -->
   <preBuildCommand />
   <!-- Executed after build -->
-  <postBuildCommand alwaysRun="False">$(ProjectDir)\postbuild.bat
-</postBuildCommand>
+  <postBuildCommand alwaysRun="False">$(ProjectDir)\postbuild.bat</postBuildCommand>
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />

@@ -7,7 +7,6 @@ package data.modules.piwik
 	import data.types.DataTable;
 	import data.types.RawData;
 	import data.modules.DataSet;
-	import data.modules.Piwik;
 	import data.util.AsyncDataLoader;
 	import flash.events.Event;
 	import viz.SparkLine;

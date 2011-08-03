@@ -15,11 +15,6 @@ package viz
 	{
 		protected var _list:DataTable;
 		
-		public function TagCloud(stage:Sprite, config:Object) 
-		{
-			super(stage, config)
-		}
-		
 		override public function setData(data:RawData):void 
 		{
 			_list = data as DataTable;
