@@ -1,5 +1,6 @@
 package data.modules.piwik
 {
+	import com.adobe.serialization.json.JSON;
 	import data.modules.DataModule;
 	import data.modules.piwik.Piwik_LinksThisMonth;
 	import data.modules.piwik.Piwik_UniqueVisitorsThisMonth;
@@ -53,21 +54,6 @@ package data.modules.piwik
 			if (ldr) {
 				_siteInfo = ldr.getResult('site-info');
 				
-				
-				/*registerDataset('week-stats', _weekStats, SparkLine, {
-					'title': _siteInfo,
-					'subtitle': 'Visitors per Week'
-					'x': 'date',
-					'y': 'visitors'
-				});
-				
-				registerDataset('day-stats', _dayStats, SparkLine, {
-					'title': _siteInfo,
-					'subtitle': 'Visitors per Week'
-					'x': 'date',
-					'y': 'visitors'
-				});*/
-				
 				//registerDataset(new Piwik_UniqueVisitorsThisMonth(this));
 				//registerDataset(new Piwik_VisitorsLast30Days(this));
 				//registerDataset(new Piwik_LinksThisMonth(this));
@@ -89,13 +75,14 @@ package data.modules.piwik
 		{
 			return getAPIUrl( {
 				'method': 'SitesManager.getSiteFromId'
-			});
+			}, 'json');
 		}
 		
 		protected function processSiteInfo(raw:String):String
 		{
-			var xml:XML = new XML(raw);
-			return String(xml.row.name);
+			var json:Object = JSON.decode(raw);
+			trace(raw);
+			return String(json[0].name);
 		}
 		
 		public function getAPIUrl(params:Object, format:String = 'xml'):String

@@ -57,14 +57,11 @@ package data.modules.piwik
 					return table;
 				case 'json':
 					var json:Object = JSON.decode(raw);
-					
 					// sort dates 
 					var dates:Array = [];
 					for (var date:String in json) dates.push(date);
 					dates.sort();
-					
 					for each (date in dates) {
-						trace(date, json.date);
 						table.insertRow([date, json[date]]);
 					}
 					return table;

@@ -15,23 +15,18 @@ package data.modules.piwik
 	import viz.TreemapModule;
 
 
-	public class Piwik_VisitorSources extends DataSet {
+	public class Piwik_VisitorSources extends DataSet 
+	{
 		
-		protected var _apiUrl:String;
-		
-		protected var _data:DataTable;
+
 		
 		public function Piwik_VisitorSources(module:Piwik) {
 			super('piwik-links', module, 86400, TreemapModule, {
 				title: module.siteInfo,
-				subtitle: 'types of incoming vistors',
-				
+				subtitle: 'types of incoming vistors'		
 			});
-			_apiUrl = module.getAPIUrl( {
-				method: 'Referers.getWebsites',
-				period: 'month',
-				date: 'today'
-			}, 'xml');
+			
+			
 		}
 		
 		protected function process(raw:String, format:String = 'xml'):DataTable
